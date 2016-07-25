@@ -18,7 +18,5 @@ public class HelpActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
     }
-
 }

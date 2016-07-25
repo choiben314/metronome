@@ -1,20 +1,26 @@
 package com.example.ben.metronome;
 
 import android.content.Intent;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
+
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Timer;
-
 public class MainActivity extends AppCompatActivity {
+
+    public Button playButton;
+    public PlaySound play;
+
+    public void resume(int tempo) {
+        play = new PlaySound(getBaseContext(), playButton);
+        play.resume(tempo);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,21 +29,40 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        final PlaySound play = new PlaySound();
-        play.mPlayer = MediaPlayer.create(this, R.raw.woodblock);
-        play.play_button = (Button) this.findViewById(R.id.button);
+        playButton = (Button) findViewById(R.id.button);
+        play = new PlaySound(getBaseContext(), playButton);
 
-        play.play_button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                play.mPlayer.start();
-            }
-        });
-        play.mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        final SeekBar tempoBar = (SeekBar)findViewById(R.id.tempoBar);
+        final TextView tempoText = (TextView)findViewById(R.id.tempoText);;
 
-        //new Timer().scheduleAtFixedRate(play, 0, 1000);
+        if (tempoBar != null) {
 
+            tempoBar.setMax(212);
+            tempoBar.setProgress(60);
+
+            resume(100);
+
+            tempoBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                    tempoText.setText(String.valueOf(seekBar.getProgress() + 40));
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+
+                }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+                    if (tempoText != null) {
+                        play.pause();
+                        resume(Integer.parseInt(tempoText.getText().toString()));
+                    }
+                }
+            });
+        }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
