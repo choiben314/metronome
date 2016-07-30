@@ -16,22 +16,14 @@ import java.util.TimerTask;
 public class PlaySound extends TimerTask{
 
     private static MediaPlayer mPlayer;
-    private Button play_button;
     private Timer mTimer;
+    private boolean playState;
 
-    public PlaySound (Context context, Button button) {
-        mPlayer = MediaPlayer.create(context, R.raw.woodblock);
-        play_button = button;
-
-        play_button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                mPlayer.start();
-            }
-        });
-
+    public PlaySound (Context context) {
+        mPlayer = MediaPlayer.create(context, R.raw.woodsound);
         mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-
         mTimer = new Timer();
+        playState = false;
     }
 
     public void run() {
@@ -42,14 +34,22 @@ public class PlaySound extends TimerTask{
         mPlayer.start();
     }
 
-    public void pause() {
+    public void stop() {
         mPlayer.release();
         mTimer.cancel();
+        mTimer.purge();
         this.cancel();
+        this.playState = false;
+
     }
 
-    public void resume(int tempo) {
+    public void reset(int tempo) {
         mTimer = new Timer();
         mTimer.scheduleAtFixedRate(this, 0, 60000 / tempo);
+        this.playState = true;
+    }
+
+    public boolean isPlayState() {
+        return playState;
     }
 }

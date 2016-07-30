@@ -20,15 +20,16 @@
         android:gravity="center"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="160dp"
-        android:textSize="60dp" />
+        android:textSize="60sp" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Play"
-        android:id="@+id/button"
+        android:layout_width="@dimen/box_size"
+        android:layout_height="@dimen/box_size"
+        android:id="@+id/playToggle"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="400dp" />
+        android:layout_marginTop="400dp"
+        android:background="@drawable/ic_play_arrow_black_24dp"
+        />
 
     <SeekBar
         android:layout_width="match_parent"
