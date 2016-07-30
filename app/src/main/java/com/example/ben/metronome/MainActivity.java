@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    public final static int MIN_TEMPO = 40;
+
     public PlaySound play;
 
     public void resume(int tempo) {
@@ -25,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
         play.reset(tempo);
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,19 +34,21 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        final TextView tempoText = (TextView)findViewById(R.id.tempoText);
+        final SeekBar tempoBar = (SeekBar)findViewById(R.id.tempoBar);
+        final Button playToggle = (Button)findViewById(R.id.playToggle);
+        final Button addOne = (Button)findViewById(R.id.addOne);
+        final Button subOne = (Button)findViewById(R.id.subOne);
+
         play = new PlaySound(getBaseContext());
 
-        final SeekBar tempoBar = (SeekBar)findViewById(R.id.tempoBar);
-        final TextView tempoText = (TextView)findViewById(R.id.tempoText);;
-        final Button playToggle = (Button)findViewById(R.id.playToggle);
-
-        if (tempoBar != null && tempoText != null && playToggle != null) {
+        if (tempoBar != null && tempoText != null && playToggle != null && addOne != null && subOne != null) {
 
             playToggle.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     if (!play.isPlayState()) {
                         playToggle.setBackgroundResource(R.drawable.ic_pause_black_24dp);
-                        resume(Integer.parseInt(tempoText.getText().toString()));
+                        resume(tempoBar.getProgress() + MIN_TEMPO);
                     }
                     else {
                         playToggle.setBackgroundResource(R.drawable.ic_play_arrow_black_24dp);
@@ -54,13 +57,33 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
+            addOne.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    tempoBar.setProgress(tempoBar.getProgress() + 1);
+                    if (play.isPlayState()) {
+                        resume(tempoBar.getProgress() + MIN_TEMPO);
+                    }
+                }
+            });
+
+            subOne.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    tempoBar.setProgress(tempoBar.getProgress() - 1);
+                    if (play.isPlayState()) {
+                        resume(tempoBar.getProgress() + MIN_TEMPO);
+                    }
+                }
+            });
+
             tempoBar.setMax(212);
-            tempoBar.setProgress(60);
+            tempoBar.setProgress(100 - MIN_TEMPO);
 
             tempoBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    tempoText.setText(String.valueOf(seekBar.getProgress() + 40));
+                    tempoText.setText(String.valueOf(seekBar.getProgress() + MIN_TEMPO));
                 }
 
                 @Override
@@ -71,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {
                     if (play.isPlayState()) {
-                        resume(Integer.parseInt(tempoText.getText().toString()));
+                        resume(tempoBar.getProgress() + MIN_TEMPO);
                     }
                 }
             });

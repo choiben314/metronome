@@ -31,6 +31,24 @@
         android:background="@drawable/ic_play_arrow_black_24dp"
         />
 
+    <Button
+        android:layout_width="@dimen/small_box"
+        android:layout_height="@dimen/small_box"
+        android:id="@+id/addOne"
+        android:background="@drawable/ic_exposure_plus_1_black_24dp"
+        android:layout_toRightOf="@+id/playToggle"
+        android:layout_alignBaseline="@+id/playToggle"
+        />
+
+    <Button
+        android:layout_width="@dimen/small_box"
+        android:layout_height="@dimen/small_box"
+        android:id="@+id/subOne"
+        android:background="@drawable/ic_exposure_neg_1_black_24dp"
+        android:layout_toLeftOf="@+id/playToggle"
+        android:layout_alignBaseline="@+id/playToggle"
+        />
+
     <SeekBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
