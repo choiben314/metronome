@@ -8,5 +8,6 @@
 
     <string name="title_activity_about">About</string>
     <string name="about_text">This is the about screen.</string>
+    <string name="title_activity_selection">SelectionActivity</string>
 
 </resources>

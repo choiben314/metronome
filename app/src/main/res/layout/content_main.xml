@@ -55,4 +55,13 @@
         android:id="@+id/tempoBar"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Piece"
+        android:id="@+id/selectionScreen"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/tempoBar"
+        android:layout_alignEnd="@+id/tempoBar" />
 </RelativeLayout>

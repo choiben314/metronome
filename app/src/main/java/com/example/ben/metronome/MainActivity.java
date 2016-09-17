@@ -40,9 +40,11 @@ public class MainActivity extends AppCompatActivity {
         final Button addOne = (Button)findViewById(R.id.addOne);
         final Button subOne = (Button)findViewById(R.id.subOne);
 
+        final Button selectionScreen = (Button)findViewById(R.id.selectionScreen);
+
         play = new PlaySound(getBaseContext());
 
-        if (tempoBar != null && tempoText != null && playToggle != null && addOne != null && subOne != null) {
+        if (tempoBar != null && tempoText != null && playToggle != null && addOne != null && subOne != null && selectionScreen != null) {
 
             playToggle.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -76,6 +78,15 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             });
+            selectionScreen.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getApplicationContext(), SelectionActivity.class);
+                    startActivity(intent);
+                }
+            });
+
+
 
             tempoBar.setMax(212);
             tempoBar.setProgress(100 - MIN_TEMPO);

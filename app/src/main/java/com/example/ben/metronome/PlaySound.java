@@ -4,15 +4,6 @@ import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Handler;
-import android.view.View;
-import android.widget.Button;
-
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Ben on 7/23/2016.
@@ -53,7 +44,8 @@ public class PlaySound {
             public void run() {
                 playState = true;
                 playBeat();
-                handler.postDelayed(this, 60000 / tempo);
+                double delay = 60000/(double)tempo;
+                handler.postDelayed(this, (long) delay);
             }
         };
         handler.post(runnable);
