@@ -8,7 +8,7 @@ public class Default {
     private int meterBot;
     private int tempo; //BPM lol
 
-    public Exception(int _meterTop, int _meterBot, int _tempo) {
+    public Default(int _meterTop, int _meterBot, int _tempo) {
         meterTop = _meterTop;
         meterBot = _meterBot;
         tempo = _tempo;
