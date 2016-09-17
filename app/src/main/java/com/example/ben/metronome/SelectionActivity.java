@@ -25,7 +25,8 @@ public class SelectionActivity extends AppCompatActivity {
 
         ListView listView = (ListView) findViewById(R.id.mainListView);
 
-        ArrayList<String> listItems = new ArrayList<String>();
+        Piece testPiece = new Piece ()
+        ArrayList<Piece> listItems = new ArrayList<Piece>();
         for (int i = 1; i <= 30; i++) {
             listItems.add("Item " + i);
         }
@@ -37,6 +38,7 @@ public class SelectionActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String thing = listAdapter.getItem(position);
                 Intent intent = new Intent(SelectionActivity.this, EditActivity.class);
+                intent.putExtra("piece", INSERT PIECE OBJECT HERE);
                 startActivity(intent);
             }
         });

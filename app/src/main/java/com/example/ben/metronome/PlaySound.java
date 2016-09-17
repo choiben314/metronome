@@ -15,12 +15,14 @@ public class PlaySound {
     private Runnable runnable;
     private Handler handler;
     private boolean playState;
+    private int currentMeasure;
 
     public PlaySound (Context context) {
         mPlayer = MediaPlayer.create(context, R.raw.woodsound);
         mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         handler = new Handler();
         playState = false;
+        currentMeasure = 1;
     }
 
     public void playBeat() {
@@ -44,8 +46,51 @@ public class PlaySound {
             public void run() {
                 playState = true;
                 playBeat();
-                double delay = 60000/(double)tempo;
+                double delay = 60000.0/(double)tempo;
                 handler.postDelayed(this, (long) delay);
+            }
+        };
+        handler.post(runnable);
+    }
+
+    public void playPiece (final Piece piece, final int start) {
+        this.currentMeasure = start;
+
+        runnable = new Runnable() {
+            int beat = 0;
+            int beatsPerMeasure;
+
+            @Override
+            public void run() {
+                playState = true;
+                double delay;
+                PlayActivity.pieceMeasure.setText(getCurrentMeasure());
+                if (checkException(piece, currentMeasure) == -1) {
+                    playBeat();
+                    delay = 60000.0/((double) (piece.getDflt().getTempo() * (double)(4.0 / piece.getDflt().getMeterBot())));
+                    beatsPerMeasure = piece.getDflt().getMeterBot();
+                    PlayActivity.pieceMeter.setText(piece.getDflt().getMeterTop() + "/" + beatsPerMeasure);
+                    PlayActivity.pieceTempo.setText(piece.getDflt().getTempo());
+                }
+                else {
+                    int index = checkException(piece, currentMeasure);
+                    playBeat();
+                    delay = 60000.0/((double) (piece.getExcpt().get(index).getTempo() * (double)(4.0 / piece.getExcpt().get(index).getMeterBot())));
+                    beatsPerMeasure = piece.getExcpt().get(index).getMeterBot();
+                    PlayActivity.pieceMeter.setText(piece.getExcpt().get(index).getMeterTop() + "/" + beatsPerMeasure);
+                    PlayActivity.pieceTempo.setText(piece.getExcpt().get(index).getTempo());
+                }
+                handler.postDelayed(this, (long) delay);
+                beat++;
+
+                if (beat % beatsPerMeasure == 0) {
+                    currentMeasure++;
+                }
+
+                if (currentMeasure == piece.getEnd()) {
+                    currentMeasure = 1;
+                    stop();
+                }
             }
         };
         handler.post(runnable);
@@ -54,4 +99,18 @@ public class PlaySound {
     public boolean isPlayState() {
         return playState;
     }
+
+    public int checkException(Piece piece, int currentMeasure) {
+        for (Exception ex : piece.getExcpt()) {
+            if (ex.getStart() <= currentMeasure && currentMeasure <= ex.getEnd()) {
+                return piece.getExcpt().indexOf(ex);
+            }
+        }
+        return -1;
+    }
+
+    public int getCurrentMeasure() {
+        return currentMeasure;
+    }
+
 }
