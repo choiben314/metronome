@@ -40,6 +40,7 @@ public class EditActivity extends AppCompatActivity {
         fabAddDefault.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
 //                AlertDialog.Builder builder = new AlertDialog.Builder(EditActivity.this);
 //                builder.setMessage("A different message").setTitle("The title")
 //                        .setPositiveButton("Do it", new DialogInterface.OnClickListener() {
@@ -121,6 +122,7 @@ public class EditActivity extends AppCompatActivity {
                 // show it
                 alertDialog.show();
             }
+
         });
 
         /*

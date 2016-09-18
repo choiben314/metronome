@@ -10,5 +10,6 @@
     <string name="about_text">This is the about screen.</string>
     <string name="title_activity_selection">SelectionActivity</string>
     <string name="title_activity_edit">EditActivity</string>
+    <string name="title_activity_play">PlayActivity</string>
 
 </resources>

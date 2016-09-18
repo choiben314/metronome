@@ -1,14 +1,16 @@
 package com.example.ben.metronome;
 
 import java.util.ArrayList;
+import java.io.Serializable;
 
 /**
  * Created by benap on 9/17/2016.
  */
-public class Piece {
+public class Piece implements Serializable{
     private String title;
     private Default dflt;
     private ArrayList<Exception> excpt;
+    private int end;
 
     public Piece(String _title, Default _dflt, ArrayList<Exception> _excpt) {
         title = _title;
@@ -38,5 +40,13 @@ public class Piece {
 
     public void setExcpt(ArrayList<Exception> excpt) {
         this.excpt = excpt;
+    }
+
+    public int getEnd() {
+        return end;
+    }
+
+    public void setEnd(int end) {
+        this.end = end;
     }
 }
