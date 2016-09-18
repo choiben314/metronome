@@ -44,10 +44,21 @@ public class SelectionActivity extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.mainListView);
 
         listItems = new ArrayList<Piece>();
-        Exception ex = new Exception (3, 8, 100, 2, 3);
+        Exception ex = new Exception (5, 8, 52, 2, 2);
+        Exception ex1 = new Exception (5, 8, 52, 4, 4);
+        Exception ex2 = new Exception (7, 8, 52, 5, 5);
+        Exception ex3 = new Exception (5, 8, 52, 6, 6);
+        Exception ex4 = new Exception (3, 8, 52, 10, 10);
+
+
+
         ArrayList<Exception>arr = new ArrayList<Exception>();
         arr.add(ex);
-        Piece piece = new Piece ("My Piece", new Default(4, 4, 100), arr, 1000);
+        arr.add(ex2);
+        arr.add(ex3);
+        arr.add(ex4);
+
+        Piece piece = new Piece ("Stravinsky 3 Pieces for Clarinet", new Default(2, 4, 52), arr, 1000);
         listItems.add(piece);
 
         listAdapter = new ArrayAdapter<Piece>(this, R.layout.simplerow, listItems);

@@ -2,6 +2,7 @@ package com.example.ben.metronome;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -35,6 +36,13 @@ public class EditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Intent intent = getIntent();
+        Piece piece = (Piece)intent.getSerializableExtra("Piece");
+        this.dflt = piece.getDflt();
+        this.excpt = piece.getExcpt();
+
+
 
         FloatingActionButton fabAddDefault = (FloatingActionButton) findViewById(R.id.fabAddDefault);
         fabAddDefault.setOnClickListener(new View.OnClickListener() {

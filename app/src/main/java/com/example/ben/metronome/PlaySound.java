@@ -83,6 +83,7 @@ public class PlaySound {
                 beat++;
 
                 if (beat % beatsPerMeasure == 0) {
+                    beat = 0;
                     currentMeasure++;
                 }
 

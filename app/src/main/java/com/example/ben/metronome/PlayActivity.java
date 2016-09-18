@@ -40,6 +40,7 @@ public class PlayActivity extends AppCompatActivity {
 
         holdMeasure = 1;
         final Button playToggle = (Button) findViewById(R.id.piecePlayToggle);
+        final Button editButton = (Button) findViewById(R.id.editButton);
 
         pieceTempo = (TextView) findViewById(R.id.pieceTempo);
         pieceMeter = (TextView) findViewById(R.id.pieceMeter);
@@ -60,6 +61,16 @@ public class PlayActivity extends AppCompatActivity {
                         holdMeasure = play.getCurrentMeasure();
                         play.stop();
                     }
+                }
+            });
+        }
+
+        if (editButton != null) {
+            editButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent intent = new Intent(PlayActivity.this, EditActivity.class);
+                    intent.putExtra("Piece", piece);
+                    startActivity(intent);
                 }
             });
         }
