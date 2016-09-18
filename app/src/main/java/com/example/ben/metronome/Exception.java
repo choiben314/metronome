@@ -1,9 +1,11 @@
 package com.example.ben.metronome;
 
+import java.io.Serializable;
+
 /**
  * Created by mljustinli on 9/17/16.
  */
-public class Exception extends Default {
+public class Exception extends Default implements Serializable {
     //measures of exception range
     private int start;
     private int end;

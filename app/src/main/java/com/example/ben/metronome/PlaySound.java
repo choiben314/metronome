@@ -64,23 +64,22 @@ public class PlaySound {
             public void run() {
                 playState = true;
                 double delay;
-                PlayActivity.pieceMeasure.setText(getCurrentMeasure());
+                PlayActivity.pieceMeasure.setText("Measure: " + getCurrentMeasure());
                 if (checkException(piece, currentMeasure) == -1) {
                     playBeat();
-                    delay = 60000.0/((double) (piece.getDflt().getTempo() * (double)(4.0 / piece.getDflt().getMeterBot())));
-                    beatsPerMeasure = piece.getDflt().getMeterBot();
-                    PlayActivity.pieceMeter.setText(piece.getDflt().getMeterTop() + "/" + beatsPerMeasure);
-                    PlayActivity.pieceTempo.setText(piece.getDflt().getTempo());
+                    delay = 60000.0/((double) (piece.getDflt().getTempo() / ((double)(4.0 / piece.getDflt().getMeterBot()))));
+                    beatsPerMeasure = piece.getDflt().getMeterTop();
+                    PlayActivity.pieceMeter.setText(beatsPerMeasure + "/" + piece.getDflt().getMeterBot());
+                    PlayActivity.pieceTempo.setText(String.valueOf(piece.getDflt().getTempo()));
                 }
                 else {
                     int index = checkException(piece, currentMeasure);
                     playBeat();
-                    delay = 60000.0/((double) (piece.getExcpt().get(index).getTempo() * (double)(4.0 / piece.getExcpt().get(index).getMeterBot())));
-                    beatsPerMeasure = piece.getExcpt().get(index).getMeterBot();
-                    PlayActivity.pieceMeter.setText(piece.getExcpt().get(index).getMeterTop() + "/" + beatsPerMeasure);
-                    PlayActivity.pieceTempo.setText(piece.getExcpt().get(index).getTempo());
+                    delay = 60000.0/((double) (piece.getExcpt().get(index).getTempo() / ((double)(4.0 / piece.getExcpt().get(index).getMeterBot()))));
+                    beatsPerMeasure = piece.getExcpt().get(index).getMeterTop();
+                    PlayActivity.pieceMeter.setText(beatsPerMeasure + "/" + piece.getExcpt().get(index).getMeterBot());
+                    PlayActivity.pieceTempo.setText(String.valueOf(piece.getExcpt().get(index).getTempo()));
                 }
-                handler.postDelayed(this, (long) delay);
                 beat++;
 
                 if (beat % beatsPerMeasure == 0) {
@@ -91,6 +90,7 @@ public class PlaySound {
                     currentMeasure = 1;
                     stop();
                 }
+                handler.postDelayed(this, (long) delay);
             }
         };
         handler.post(runnable);

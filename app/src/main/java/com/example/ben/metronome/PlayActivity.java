@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class PlayActivity extends AppCompatActivity {
 
@@ -35,6 +36,8 @@ public class PlayActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        new Toast(this).makeText(this, "Hello", Toast.LENGTH_LONG);
+
         holdMeasure = 1;
         final Button playToggle = (Button) findViewById(R.id.piecePlayToggle);
 
@@ -43,7 +46,8 @@ public class PlayActivity extends AppCompatActivity {
         pieceMeasure = (TextView) findViewById(R.id.pieceMeasure);
 
         Intent intent = getIntent();
-        piece = (Piece)intent.getSerializableExtra("piece");
+        piece = (Piece)intent.getSerializableExtra("Piece");
+        play = new PlaySound(getBaseContext());
 
         if (playToggle != null) {
             playToggle.setOnClickListener(new View.OnClickListener() {

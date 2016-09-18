@@ -1,9 +1,14 @@
 package com.example.ben.metronome;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
 /**
  * Created by mljustinli on 9/17/16.
  */
-public class Default {
+public class Default implements Serializable{
     private int meterTop;
     private int meterBot;
     private int tempo; //BPM lol
@@ -13,6 +18,7 @@ public class Default {
         meterBot = _meterBot;
         tempo = _tempo;
     }
+
 
     public int getMeterTop() {
         return meterTop;
